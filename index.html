@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madalena — GCSE Maths Tutor</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0f2044;
+    --navy-mid:    #1a3260;
+    --navy-light:  #e8eef7;
+    --off-white:   #f7f9fc;
+    --white:       #ffffff;
+    --terracotta:  #b07080;
+    --terra-light: #f5eaed;
+    --green:       #2e7d52;
+    --green-light: #e8f4ee;
+    --text:        #0f2044;
+    --mid:         #4a5e7a;
+    --muted:       #8496ad;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(247,249,252,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(15,32,68,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo span { color: var(--terracotta); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mid);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  .nav-cta {
+    background: var(--navy) !important;
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--navy-mid) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 55% at 85% 25%, rgba(15,32,68,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 45% at 15% 85%, rgba(200,105,58,0.06) 0%, transparent 60%);
+  }
+
+  .hero-arc { display: none; }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1.1;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+
+  h1 em { font-style: italic; color: var(--terracotta); }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--mid);
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 15px 32px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(15,32,68,0.2);
+  }
+
+  .btn-primary:hover {
+    background: var(--navy-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(15,32,68,0.28);
+  }
+
+  .btn-secondary {
+    color: var(--mid);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .btn-secondary:hover { color: var(--navy); }
+
+  .hero-badges {
+    display: flex;
+    gap: 24px;
+    margin-top: 56px;
+    flex-wrap: wrap;
+  }
+
+  .badge { display: flex; align-items: center; gap: 10px; }
+
+  .badge-icon {
+    width: 40px; height: 40px;
+    background: var(--navy-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .badge-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .badge-text span { font-size: 12px; color: var(--muted); }
+
+  /* ABOUT */
+  .about {
+    padding: 100px 48px;
+    background: var(--off-white);
+  }
+
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
+
+  h2 em { font-style: italic; color: var(--terracotta); }
+
+  .body-text { font-size: 15.5px; line-height: 1.75; color: var(--mid); }
+  .body-text p + p { margin-top: 16px; }
+  .body-text strong { color: var(--navy); }
+
+  .quals { display: flex; flex-direction: column; gap: 16px; }
+
+  .qual-card {
+    background: var(--white);
+    border: 1px solid rgba(15,32,68,0.09);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .qual-card:hover {
+    border-color: rgba(15,32,68,0.2);
+    transform: translateX(4px);
+  }
+
+  .qual-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  .qual-info strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+
+  .qual-info span { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+  /* HOW IT WORKS */
+  .how { padding: 100px 48px; background: var(--white); }
+
+  .section-header { text-align: center; margin-bottom: 60px; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .step {
+    text-align: center;
+    padding: 36px 28px;
+    background: var(--off-white);
+    border-radius: 20px;
+    border: 1px solid rgba(15,32,68,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(15,32,68,0.08);
+  }
+
+  .step-num {
+    width: 44px; height: 44px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 auto 20px;
+    font-family: 'Lora', serif;
+  }
+
+  .step h3 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* OFFER */
+  .offer {
+    padding: 100px 48px;
+    background: var(--terra-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .offer::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(176,112,128,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .offer .section-label { color: var(--terracotta); }
+  .offer h2 { color: var(--navy); }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 48px auto 0;
+    max-width: 800px;
+  }
+
+  .offer-item {
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(176,112,128,0.2);
+    border-radius: 16px;
+    padding: 28px;
+    transition: background 0.2s;
+  }
+
+  .offer-item:hover { background: rgba(255,255,255,0.95); }
+  .offer-item-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .offer-item .icon { font-size: 26px; flex-shrink: 0; }
+  .offer-item h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin: 0; }
+  .offer-item p { font-size: 14px; color: var(--mid); line-height: 1.6; }
+
+  /* RATE */
+  .rate-section {
+    padding: 100px 48px;
+    background: linear-gradient(to bottom, var(--terra-light) 0%, var(--navy-light) 18%);
+    text-align: center;
+  }
+
+  .rate-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px;
+    border: 1px solid rgba(15,32,68,0.1);
+    position: relative;
+  }
+
+  .rate-amount {
+    font-family: 'Lora', serif;
+    font-size: 56px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .rate-per { font-size: 14px; color: var(--muted); margin-bottom: 4px; }
+
+  /* BOOKING */
+  .booking { padding: 100px 48px; background: var(--white); text-align: center; }
+  .booking .section-inner { max-width: 720px; }
+  .booking h2 { margin-bottom: 16px; }
+  .booking .body-text { margin-bottom: 40px; text-align: center; }
+
+  .google-form-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #e8f0fe;
+    color: #1a73e8;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer .nav-logo { color: white; }
+  footer .nav-logo span { color: var(--terracotta); }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.35); }
+
+  /* HAMBURGER */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 101;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 32px; }
+    .hero, .about, .how, .offer, .rate-section, .booking { padding-left: 32px; padding-right: 32px; }
+    .two-col { gap: 48px; }
+    footer { padding: 32px 32px; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+
+    .nav-hamburger { display: flex; }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 57px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: 8px 20px 20px;
+      border-bottom: 1px solid rgba(15,32,68,0.1);
+      gap: 0;
+      box-shadow: 0 8px 24px rgba(15,32,68,0.1);
+      z-index: 99;
+    }
+
+    .nav-links.open { display: flex; }
+
+    .nav-links li { width: 100%; }
+
+    .nav-links a {
+      display: block;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(15,32,68,0.06);
+      font-size: 15px;
+      color: var(--navy);
+    }
+
+    .nav-links li:last-child a {
+      border-bottom: none;
+      margin-top: 10px;
+      text-align: center;
+      padding: 13px;
+      border-radius: 100px;
+    }
+
+    .hero { padding: 96px 20px 56px; min-height: auto; }
+    .about, .how, .offer, .booking { padding: 64px 20px; }
+    .rate-section { padding: 64px 20px; }
+
+    .two-col { gap: 40px; }
+    .steps { grid-template-columns: 1fr; }
+    .offer-grid { grid-template-columns: 1fr; }
+    .hero-badges { gap: 20px; }
+
+    .rate-section .fade-up > div[style*="grid"] { grid-template-columns: 1fr !important; }
+
+    footer { padding: 32px 20px; flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-badges { flex-direction: column; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn-primary { justify-content: center; }
+    .btn-secondary { justify-content: center; }
+    .rate-card { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Madalena <span>Maths</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#offer">Sessions</a></li>
+    <li><a href="#booking">Pricing</a></li>
+    <li><a href="#booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-arc"></div>
+  <div class="hero-arc"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" id="eyebrow">Now taking students · Exam season</div>
+    <h1>GCSE Maths tutoring that <em>actually works</em></h1>
+    <p class="hero-sub">Hi, I'm Madalena — a First Class Mathematics graduate with <span style="white-space:nowrap">5 years of</span> tutoring experience in GCSE and Further Maths.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book a free consultation →</a>
+      <a href="#about" class="btn-secondary">Learn more ↓</a>
+    </div>
+    <div class="hero-badges">
+      <div class="badge">
+        <div class="badge-icon">🎓</div>
+        <div class="badge-text">
+          <strong>BSc Mathematics, 1st Class</strong>
+          <span>King's College London</span>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">📅</div>
+        <div class="badge-text">
+          <strong>5 Years Experience</strong>
+          <span>Private and institutional tutoring</span>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">💻</div>
+        <div class="badge-text">
+          <strong>Online 1-on-1</strong>
+          <span>Flexible scheduling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="two-col">
+      <div class="fade-up">
+        <div class="section-label">About Me</div>
+        <h2>A tutor who <em>adapts</em> to you</h2>
+        <div class="body-text">
+          <p>I'm Madalena, a mathematician with a deep passion for how people learn. I graduated with a First Class BSc in Mathematics from King's College London and went on to study Part III at the University of Cambridge, one of the most rigorous postgraduate Maths programmes in the world.</p>
+          <p>I've been tutoring for 5 years, first alongside my own studies, and now full-time. I've worked with students through Tutorberry, Parallel Academy, and King's Factor, as well as privately. Every student I work with gets a genuinely personalised experience.</p>
+          <p>My approach is grounded in <strong>maths education research</strong>, particularly pedagogy and cognitive neuroscience, so the way I teach is informed by what actually helps things stick, not just what gets you through the next test.</p>
+          <p>Above all, I'm patient, unhurried, and skilled at meeting students exactly where they are.</p>
+        </div>
+      </div>
+      <div class="quals fade-up">
+        <div class="section-label">Qualifications and Experience</div>
+        <div class="qual-card">
+          <div class="qual-icon">🏛️</div>
+          <div class="qual-info">
+            <strong>BSc Mathematics, First Class Honours</strong>
+            <span>King's College London</span>
+          </div>
+        </div>
+        <div class="qual-card">
+          <div class="qual-icon">📐</div>
+          <div class="qual-info">
+            <strong>Part III Mathematics</strong>
+            <span>University of Cambridge, postgraduate level study</span>
+          </div>
+        </div>
+        <div class="qual-card">
+          <div class="qual-icon">📚</div>
+          <div class="qual-info">
+            <strong>5 Years Tutoring</strong>
+            <span>Tutorberry · Parallel Academy · King's Factor · Private students</span>
+          </div>
+        </div>
+        <div class="qual-card">
+          <div class="qual-icon">🧠</div>
+          <div class="qual-info">
+            <strong>Interest in Maths Education</strong>
+            <span>Pedagogy and cognitive neuroscience, teaching informed by research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-label">The Process</div>
+      <h2>How it works</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <h3>Free Consultation</h3>
+        <p>We have a relaxed chat to understand where you are, what's not clicking, and what your exam goals are.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <h3>Personalised Plan</h3>
+        <p>I put together a study plan tailored to your syllabus, timeline, and learning style. No generic approach.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <h3>Sessions Begin</h3>
+        <p>We work through the material at your pace, online, with full focus on the areas that need it most.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer" id="offer">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-label">What I Offer</div>
+      <h2>Sessions designed <em>around you</em></h2>
+    </div>
+    <div class="offer-grid">
+      <div class="offer-item fade-up">
+        <div class="offer-item-header">
+          <span class="icon">📈</span>
+          <h3>GCSE Maths</h3>
+        </div>
+        <p>Foundation or Higher. We target exactly what the examiners are looking for and close your gaps efficiently.</p>
+      </div>
+      <div class="offer-item fade-up">
+        <div class="offer-item-header">
+          <span class="icon">∑</span>
+          <h3>Further Maths</h3>
+        </div>
+        <p>Covering all Further Maths topics with clarity and rigour, from mechanics to statistics to pure.</p>
+      </div>
+      <div class="offer-item fade-up">
+        <div class="offer-item-header">
+          <span class="icon">⚡</span>
+          <h3>Exam Crash Courses</h3>
+        </div>
+        <p>Intensive sessions in the lead-up to exams. We focus on high-yield topics, past papers, and exam technique.</p>
+      </div>
+      <div class="offer-item fade-up">
+        <div class="offer-item-header">
+          <span class="icon">🗓️</span>
+          <h3>Long-Term Study Plans</h3>
+        </div>
+        <p>For students who want consistent, structured progress across a term or full year, with a plan that evolves as you do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RATE -->
+<section class="rate-section" id="booking">
+  <div class="fade-up" style="width:100%; max-width:780px; margin:0 auto;">
+    <div class="section-label" style="text-align:center; margin-bottom:12px;">Pricing</div>
+    <h2 style="text-align:center; margin-bottom:8px;">Simple, transparent rates</h2>
+    <p style="text-align:center; color:var(--mid); font-size:15px; margin-bottom:48px;">First consultation is always free, no commitment.</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+      <div class="rate-card" style="text-align:left;">
+        <div style="font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:20px;">Pay as you go</div>
+        <div class="rate-amount">£50</div>
+        <div class="rate-per" style="margin-bottom:28px;">per session · 1 hour</div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:32px;">
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>1-on-1 online session</li>
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Tailored to your syllabus and weak spots</li>
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Session notes and follow-up resources</li>
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Book whenever suits you</li>
+        </ul>
+        <a href="https://forms.gle/7Eu6JUKVC2HhMZmZ7" target="_blank" class="btn-primary" style="width:100%; justify-content:center; background:var(--mid); box-shadow:none;">Get started →</a>
+      </div>
+
+      <div class="rate-card" style="text-align:left; border:2px solid var(--navy); position:relative;">
+        <div style="position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--navy); color:white; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:100px; white-space:nowrap;">Most popular</div>
+        <div style="font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:20px;">Monthly commitment</div>
+        <div class="rate-amount">£180</div>
+        <div class="rate-per" style="margin-bottom:4px;">per month · 4 sessions</div>
+        <div style="font-size:12px; color:var(--green); font-weight:700; margin-bottom:28px;">Save £20 vs pay as you go</div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:32px;">
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Everything in pay as you go</li>
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Personalised long-term study plan</li>
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Progress tracking across sessions</li>
+          <li style="font-size:14px; color:var(--mid); display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--navy); font-weight:700; flex-shrink:0;">✓</span>Priority scheduling</li>
+        </ul>
+        <a href="https://forms.gle/7Eu6JUKVC2HhMZmZ7" target="_blank" class="btn-primary" style="width:100%; justify-content:center;">Get started →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="contact">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-label">Get in Touch</div>
+      <h2>Ready to get <em>started?</em></h2>
+      <div class="body-text">
+        <p>Fill in the short Google Form below and I'll be in touch within 24 hours to arrange your free consultation. No commitment, just a friendly chat to see how I can help.</p>
+      </div>
+      <br>
+      <div class="google-form-note">
+        <span>📋</span> Booking via Google Form, safe and simple
+      </div>
+      <br><br>
+      <a href="https://forms.gle/7Eu6JUKVC2HhMZmZ7" target="_blank" class="btn-primary" style="font-size:16px; padding:17px 36px;">
+        Open Booking Form →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="nav-logo">Madalena <span>Maths</span></div>
+  <p>© 2026 · GCSE and Further Maths Tutoring · Online 1-on-1</p>
+</footer>
+
+<script>
+  const month = new Date().getMonth(); // 0 = Jan
+  const messages = {
+    0: "Now Taking Students · Start The Year Strong",
+    1: "Now Taking Students · Start The Year Strong",
+    2: "Now Taking Students · Start The Year Strong",
+    3: "Now Taking Students · Exam Season",
+    4: "Now Taking Students · Exam Season",
+    5: "Now Taking Students · Last Push Before Exams",
+    6: "Now Taking Students · Get Ahead For Next Year",
+    7: "Now Taking Students · Get Ahead For Next Year",
+    8: "Now Taking Students · New Academic Year",
+    9: "Now Taking Students · New Academic Year",
+    10: "Now Taking Students · Mock Season",
+    11: "Now Taking Students · Mock Season",
+  };
+  document.getElementById('eyebrow').textContent = messages[month];
+
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
