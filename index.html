@@ -381,6 +381,73 @@
   .offer-item h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin: 0; }
   .offer-item p { font-size: 14px; color: var(--mid); line-height: 1.6; }
 
+/* TESTIMONIALS */
+  .testimonials {
+    padding: 100px 48px;
+    background: var(--off-white);
+  }
+
+  .testimonials .section-label { color: var(--terracotta); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 48px auto 0;
+  }
+
+  .testimonial-card {
+    background: var(--white);
+    border: 1px solid rgba(15,32,68,0.09);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(15,32,68,0.08);
+  }
+
+  .testimonial-stars {
+    display: flex;
+    gap: 3px;
+    color: var(--terracotta);
+    font-size: 15px;
+  }
+
+  .testimonial-quote {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--mid);
+    flex: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(15,32,68,0.07);
+  }
+
+  .testimonial-author strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .testimonial-author span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  
   /* RATE */
   .rate-section {
     padding: 100px 48px;
@@ -721,7 +788,47 @@
     </div>
   </div>
 </section>
+  
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-label">What Parents Say</div>
+      <h2>Results that <em>speak for themselves</em></h2>
+    </div>
+    <div class="testimonials-grid">
 
+      <div class="testimonial-card fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"She has a natural ability for simplifying complex topics, making them easy to understand. With her guidance, you will definitely see significant improvements in your grades."</p>
+        <div class="testimonial-author">
+          <strong>Verified student</strong>
+          <span>Private tutoring</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"She is patient and gentle, but also passionate and willing to help push you to do your best. She's very understanding, and happy to get to know her students to find out what will work best."</p>
+        <div class="testimonial-author">
+          <strong>Verified student</strong>
+          <span>Private tutoring</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Madalena is an experienced and highly skilled maths tutor. She is a qualified mathematician and a very competent and empathetic teacher. I highly recommend her."</p>
+        <div class="testimonial-author">
+          <strong>Verified student</strong>
+          <span>Private tutoring</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+  
 <!-- RATE -->
 <section class="rate-section" id="booking">
   <div class="fade-up" style="width:100%; max-width:780px; margin:0 auto;">
